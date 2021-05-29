@@ -1,77 +1,125 @@
 import styled from 'styled-components';
-import { tint } from 'polished';
+import { transparentize } from 'polished';
 
 const handleColorType = type => {
   switch (type) {
     case 'rock':
-      return 'rgb(148, 81, 81)';
+      return `${transparentize(0.9, '#A38C21')}`;
 
     case 'ghost':
-      return 'rgb(247, 247, 247)';
+      return `${transparentize(0.9, '#7B62A3')}`;
 
     case 'electric':
-      return 'rgb(255, 255, 161)';
+      return `${transparentize(0.9, '#EED535')}`;
 
     case 'bug':
-      return '#f6d6a7';
+      return `${transparentize(0.9, '#729F3F')}`;
 
     case 'poison':
-      return '#e0a7f6';
+      return `${transparentize(0.9, '#B97FC9')}`;
 
     case 'normal':
-      return '#f4f4f4';
+      return `${transparentize(0.9, '#A4ACAF')}`;
 
     case 'fairy':
-      return 'rgba(255, 192, 203, 0case 863)';
+      return `${transparentize(0.9, '#FDB9E9')}`;
 
     case 'fire':
-      return '#fbe3df';
+      return `${transparentize(0.9, '#FD7D24')}`;
 
     case 'grass':
-      return '#e2f9e1';
+      return `${transparentize(0.9, '#9BCC50')}`;
 
     case 'water':
-      return '#e0f1fd';
+      return `${transparentize(0.9, '#4592C4')}`;
+
+    case 'flying':
+      return `${transparentize(0.9, '#A890F0')}`;
+
+    case 'psychic':
+      return `${transparentize(0.9, '#F366B9')}`;
+
+    case 'ice':
+      return `${transparentize(0.9, '#51C4E7')}`;
+
+    case 'ground':
+      return `${transparentize(0.9, '#E0C068')}`;
+
+    case 'fighting':
+      return `${transparentize(0.9, '#C03028')}`;
+
+    case 'steel':
+      return `${transparentize(0.9, '#9EB7B8')}`;
+
+    case 'dark':
+      return `${transparentize(0.9, '#707070')}`;
+
+    case 'dragon':
+      return `${transparentize(0.9, '#7038F8')}`;
 
     default:
-      return '#fff';
+      return `${transparentize(0.9, '#fff')}`;
   }
 };
 
 const handleColorTypeBar = type => {
   switch (type) {
     case 'rock':
-      return `${tint(-4.5, 'rgb(148, 81, 81)')}`;
+      return '#A38C21';
 
     case 'ghost':
-      return `${tint(-4.5, 'rgb(247, 247, 247)')}`;
+      return '#7B62A3';
 
     case 'electric':
-      return `${tint(-4.5, 'rgb(255, 255, 161)')}`;
+      return '#EED535';
 
     case 'bug':
-      return `${tint(-4.5, '#f6d6a7')}`;
+      return '#729F3F';
 
     case 'poison':
-      return `${tint(-4.5, '#e0a7f6')}`;
+      return '#B97FC9';
 
     case 'normal':
-      return `${tint(-4.5, '#f4f4f4')}`;
+      return '#A4ACAF';
 
     case 'fairy':
-      return `${tint(-4.5, 'rgba(255, 192, 203, 0case 863)')}`;
+      return '#FDB9E9';
 
     case 'fire':
-      return `${tint(-4.5, '#fbe3df')}`;
+      return '#FD7D24';
 
     case 'grass':
-      return `${tint(-4.5, '#e2f9e1')}`;
+      return '#9BCC50';
 
     case 'water':
-      return `${tint(-4.5, '#e0f1fd')}`;
+      return '#4592C4';
+
+    case 'flying':
+      return '#A890F0';
+
+    case 'psychic':
+      return '#F366B9';
+
+    case 'ice':
+      return '#51C4E7';
+
+    case 'ground':
+      return '#E0C068';
+
+    case 'fighting':
+      return '#C03028';
+
+    case 'steel':
+      return '#9EB7B8';
+
+    case 'dark':
+      return '#707070';
+
+    case 'dragon':
+      return '#7038F8';
 
     default:
-      return `${tint(-4.5, '#fff')}`;
+      return '#fff';
   }
 };
 
@@ -80,36 +128,51 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   border: 2px solid #2556;
+  max-height: 450px;
+  align-items: stretch;
+  flex-wrap: wrap;
 `;
 
 export const SideLeftBoard = styled.div`
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   text-align: center;
   border-radius: 15px;
-
-  ul li {
-    list-style: none;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  max-width: 50%;
+  background: linear-gradient(
+    to bottom,
+    ${({ type }) => handleColorTypeBar(type)} 0%,
+    ${({ type }) => handleColorType(type)} 100%
+  );
 
   div {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    span + span {
+      margin-left: 10px;
+    }
   }
 
-  div img {
-    width: 100%;
+  img {
+    width: 300px;
     max-width: 100%;
   }
 
   background-color: ${({ type }) => handleColorType(type)};
 `;
 
-export const SideRightBoard = styled.div`
-  flex-direction: column;
+export const Name = styled.p`
+  color: #fff;
+  font-size: 32px;
+  font-weight: 700;
+  text-transform: capitalize;
+`;
+
+export const Number = styled.p`
+  color: #fff;
+  font-size: 32px;
+  margin-top: 11px;
 `;
 
 export const TypeBar = styled.span`
@@ -121,19 +184,87 @@ export const TypeBar = styled.span`
 
   font-weight: 500;
 
-  & + span {
-    margin-left: 10px;
-  }
+  margin-bottom: 20px;
+`;
+
+export const SideRightBoard = styled.div`
+  display: flex;
+  max-width: 50%;
+  width: 500px;
+  border-radius: 15px;
+  flex-direction: column;
+  background-color: #a4a4a4;
+  justify-content: space-evenly;
+  margin-left: 20px;
 `;
 
 export const Title = styled.p`
   color: #fff;
-  font-size: 32px;
+  font-size: 16px;
+  padding: 10px;
   font-weight: 700;
   text-transform: capitalize;
 `;
 
-export const Number = styled.p`
-  color: #fff;
-  font-size: 32px;
+export const Description = styled.div`
+  font-weight: 700px;
+  margin: 0 10px;
+  background-color: #f2f2f2;
+  border-radius: 15px;
+  padding: 10px;
+  p {
+    font-weight: 300;
+  }
+`;
+
+export const Data = styled.div`
+  margin: 0 10px;
+  display: flex;
+
+  font-weight: 700px;
+  background-color: #f2f2f2;
+  border-radius: 15px;
+  padding: 10px;
+  justify-content: space-evenly;
+
+  & div {
+    display: flex;
+    text-transform: capitalize;
+  }
+
+  p {
+    font-weight: 300;
+  }
+`;
+
+export const Stat = styled.div`
+  margin: 0 10px;
+
+  font-weight: 700px;
+  background-color: #f2f2f2;
+  border-radius: 15px;
+  padding: 5px;
+  div {
+    display: flex;
+    text-transform: capitalize;
+
+    p {
+      font-weight: 300;
+    }
+  }
+`;
+
+export const Evolution = styled.div`
+  margin: 0 10px;
+
+  font-weight: 700px;
+  background-color: #f2f2f2;
+  border-radius: 15px;
+  padding: 5px;
+  display: flex;
+  justify-content: space-evenly;
+  p {
+    margin-left: 10px;
+    font-weight: 300;
+  }
 `;

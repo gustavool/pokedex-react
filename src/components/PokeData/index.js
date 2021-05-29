@@ -7,6 +7,11 @@ import {
   TypeBar,
   Title,
   Number,
+  Description,
+  Data,
+  Stat,
+  Name,
+  Evolution,
 } from './styles';
 
 export default function PokeData() {
@@ -16,6 +21,7 @@ export default function PokeData() {
   const [dataPoke, setDataPoke] = useState({});
   const [evoPoke, setEvoPoke] = useState({});
   const [genderPoke, setGenderPoke] = useState([]);
+  const [imgEvoPoke, setImgEvoPoke] = useState([]);
 
   const getDataPokemon = async () => {
     const dataPokeRes = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
@@ -35,7 +41,35 @@ export default function PokeData() {
       dataSpeciePoke.evolution_chain && dataSpeciePoke.evolution_chain.url,
     );
 
-    setEvoPoke(await evoPokeRes.json());
+    const evoPokeData = await evoPokeRes.json();
+
+    const evoPokeList = [
+      evoPokeData.chain.species.name,
+      ...(evoPokeData.chain &&
+        evoPokeData.chain.evolves_to.map(evolution => evolution.species.name)),
+      ...(evoPokeData.chain &&
+        evoPokeData.chain.evolves_to[0] &&
+        evoPokeData.chain.evolves_to[0].evolves_to.map(
+          nextEvo => nextEvo.species.name,
+        )),
+    ];
+
+    setEvoPoke(evoPokeList);
+
+    function getImgPoke(evolutions) {
+      evolutions.forEach(async evolution => {
+        const imgPokeRes = await fetch(
+          `https://pokeapi.co/api/v2/pokemon/${evolution}`,
+        );
+        const imgPoke = await imgPokeRes.json();
+        const imgLink =
+          imgPoke.sprites &&
+          imgPoke.sprites.other['official-artwork'].front_default;
+        setImgEvoPoke(imgList => [...imgList, imgLink]);
+      });
+    }
+
+    getImgPoke(evoPokeList);
   };
 
   async function verifyGenderPokemon() {
@@ -71,86 +105,91 @@ export default function PokeData() {
     verifyGenderPokemon();
   }, [dataPoke]);
 
+  console.log(evoPoke);
+  console.log('-------------');
+  console.log(imgEvoPoke);
+
   return (
     <Container key={dataPoke.order}>
       <SideLeftBoard type={dataPoke.types && dataPoke.types[0].type.name}>
-        <ul>
-          <Number>
-            {dataSpeciePoke.id < 10 && `#00${dataSpeciePoke.id}`}
-            {dataSpeciePoke.id >= 10 &&
-              dataSpeciePoke.id < 100 &&
-              `#0${dataSpeciePoke.id}`}
-          </Number>
-          <Title>{dataPoke.name}</Title>
-          <li>
-            <img
-              src={
-                dataPoke.sprites &&
-                dataPoke.sprites.other['official-artwork'].front_default
-              }
-              alt='pokemon'
-            />
-          </li>
-          <li>
-            {dataPoke.types &&
-              dataPoke.types.map(tipos => (
-                <TypeBar key={tipos.type.name} type={tipos.type.name}>
-                  {tipos.type.name}
-                </TypeBar>
-              ))}
-          </li>
-        </ul>
+        <Number>
+          {dataSpeciePoke.id < 10 && `#00${dataSpeciePoke.id}`}
+          {dataSpeciePoke.id >= 10 &&
+            dataSpeciePoke.id < 100 &&
+            `#0${dataSpeciePoke.id}`}
+        </Number>
+        <Name>{dataPoke.name}</Name>
+        <img
+          src={
+            dataPoke.sprites &&
+            dataPoke.sprites.other['official-artwork'].front_default
+          }
+          alt='pokemon'
+        />
+        <div>
+          {dataPoke.types &&
+            dataPoke.types.map(tipos => (
+              <TypeBar key={tipos.type.name} type={tipos.type.name}>
+                {tipos.type.name}
+              </TypeBar>
+            ))}
+        </div>
       </SideLeftBoard>
       <SideRightBoard>
-        <div>
-          Description:
-          {dataPoke.name}
-          {dataPoke.types && ` is ${dataPoke.types[0].type.name} `}
-          {dataPoke.types &&
-            dataPoke.types[1] &&
-            `and ${dataPoke.types[1].type.name} `}
-          type pokemon.
-          {dataSpeciePoke.flavor_text_entries &&
-            ` ${dataSpeciePoke.flavor_text_entries[0].flavor_text}`}
-        </div>
-        <div>
+        <Title>Description</Title>
+        <Description>
+          <p>
+            {dataPoke.name}
+            {dataPoke.types && ` is ${dataPoke.types[0].type.name} `}
+            {dataPoke.types &&
+              dataPoke.types[1] &&
+              `and ${dataPoke.types[1].type.name} `}
+            type pokemon.
+            {dataSpeciePoke.flavor_text_entries &&
+              ` ${dataSpeciePoke.flavor_text_entries[0].flavor_text}`}
+          </p>
+        </Description>
+        <Title>Data</Title>
+        <Data>
           <div>
-            Data:
-            <span>height: {dataPoke.height}</span>
-            <span>weight: {dataPoke.weight}</span>
-            <div>
-              Gender:
-              {genderPoke.includes(1) && 'female'}
-              {genderPoke.includes(2) && 'male'}
-              {genderPoke.includes(3) && 'genderless'}
-            </div>
+            height: <p>{dataPoke.height}</p>
           </div>
-
           <div>
-            Stats:
-            {dataPoke.stats &&
-              dataPoke.stats.map(stat => {
-                return (
-                  <span key={stat.stat.name}>
-                    {stat.stat.name}: {stat.base_stat}
-                  </span>
-                );
-              })}
+            weight: <p>{dataPoke.weight}</p>
           </div>
-        </div>
-        <div>
-          Evolutions:
-          {evoPoke.chain && evoPoke.chain.species.name}
-          {evoPoke.chain &&
-            evoPoke.chain.evolves_to.map(evolution => {
-              return evolution.species.name;
+          <div>
+            Gender:
+            {genderPoke.includes(1) && <p>female</p>}
+            {genderPoke.includes(2) && <p>male</p>}
+            {genderPoke.includes(3) && <p>genderless</p>}
+          </div>
+        </Data>
+        <Title>Stats</Title>
+        <Stat>
+          {dataPoke.stats &&
+            dataPoke.stats.map(stat => {
+              return (
+                <div key={stat.stat.name}>
+                  {stat.stat.name}: <p>{stat.base_stat}</p>
+                </div>
+              );
             })}
-          {evoPoke.chain &&
-            evoPoke.chain.evolves_to[0] &&
-            evoPoke.chain.evolves_to[0].evolves_to.map(nextEvo => {
-              return nextEvo.species.name;
+        </Stat>
+        <Title>Evolutions</Title>
+        <Evolution>
+          {/* <p>{evoPoke[0]}</p>
+          <p>{evoPoke[1]}</p>
+          <p>{evoPoke[2]}</p> */}
+          <p>{evoPoke}</p>
+          {/* <p>{evoPoke.map(evolution => evolution)}</p> */}
+          {/* <p>{evoPoke.forEach(evolution => evolution)}</p> */}
+          {/* <img
+            href={imgEvoPoke.map(imgPoke => {
+              return imgPoke;
             })}
-        </div>
+            alt='pokemon'
+          /> */}
+        </Evolution>
       </SideRightBoard>
     </Container>
   );
