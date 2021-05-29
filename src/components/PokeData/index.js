@@ -42,17 +42,27 @@ export default function PokeData() {
     );
 
     const evoPokeData = await evoPokeRes.json();
-
+    console.log(
+      evoPokeData.chain.evolves_to.length > 0 &&
+        evoPokeData.chain.evolves_to[0],
+    );
     const evoPokeList = [
       evoPokeData.chain.species.name,
       ...(evoPokeData.chain &&
         evoPokeData.chain.evolves_to.map(evolution => evolution.species.name)),
-      ...(evoPokeData.chain &&
-        evoPokeData.chain.evolves_to[0] &&
-        evoPokeData.chain.evolves_to[0].evolves_to.map(
-          nextEvo => nextEvo.species.name,
-        )),
+      // ...(evoPokeData.chain &&
+      //   evoPokeData.chain.evolves_to[0] &&
+      //   evoPokeData.chain.evolves_to[0].evolves_to.map(
+      //     nextEvo => nextEvo.species.name,
+      //   )),
     ];
+
+    // evoPokeList = evoPokeData.chain.evolves_to.length > 0 && [
+    //   ...evoPokeList,
+    //   ...evoPokeData.chain.evolves_to[0].evolves_to.map(
+    //     nextEvo => nextEvo.species.name,
+    //   ),
+    // ];
 
     setEvoPoke(evoPokeList);
 
@@ -105,8 +115,6 @@ export default function PokeData() {
     verifyGenderPokemon();
   }, [dataPoke]);
 
-  console.log(evoPoke);
-  console.log('-------------');
   console.log(imgEvoPoke);
 
   return (
@@ -177,18 +185,9 @@ export default function PokeData() {
         </Stat>
         <Title>Evolutions</Title>
         <Evolution>
-          {/* <p>{evoPoke[0]}</p>
-          <p>{evoPoke[1]}</p>
-          <p>{evoPoke[2]}</p> */}
-          <p>{evoPoke}</p>
-          {/* <p>{evoPoke.map(evolution => evolution)}</p> */}
-          {/* <p>{evoPoke.forEach(evolution => evolution)}</p> */}
-          {/* <img
-            href={imgEvoPoke.map(imgPoke => {
-              return imgPoke;
-            })}
-            alt='pokemon'
-          /> */}
+          {evoPoke.length && evoPoke.map(evolution => <p>{evolution}</p>)}
+          {/* {imgEvoPoke.length &&
+            imgEvoPoke.map(evoImg => <img src={evoImg} alt='pokemon' />)} */}
         </Evolution>
       </SideRightBoard>
     </Container>

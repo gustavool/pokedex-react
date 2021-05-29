@@ -263,8 +263,13 @@ export const Evolution = styled.div`
   padding: 5px;
   display: flex;
   justify-content: space-evenly;
+
   p {
     margin-left: 10px;
     font-weight: 300;
+  }
+
+  img {
+    width: 80px;
   }
 `;
