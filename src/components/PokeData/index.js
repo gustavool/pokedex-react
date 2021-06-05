@@ -12,6 +12,7 @@ import {
   Stat,
   Name,
   Evolution,
+  Image,
 } from './styles';
 
 export default function PokeData() {
@@ -42,27 +43,21 @@ export default function PokeData() {
     );
 
     const evoPokeData = await evoPokeRes.json();
-    console.log(
-      evoPokeData.chain.evolves_to.length > 0 &&
-        evoPokeData.chain.evolves_to[0],
-    );
+
     const evoPokeList = [
       evoPokeData.chain.species.name,
       ...(evoPokeData.chain &&
         evoPokeData.chain.evolves_to.map(evolution => evolution.species.name)),
-      // ...(evoPokeData.chain &&
-      //   evoPokeData.chain.evolves_to[0] &&
-      //   evoPokeData.chain.evolves_to[0].evolves_to.map(
-      //     nextEvo => nextEvo.species.name,
-      //   )),
     ];
-
-    // evoPokeList = evoPokeData.chain.evolves_to.length > 0 && [
-    //   ...evoPokeList,
-    //   ...evoPokeData.chain.evolves_to[0].evolves_to.map(
-    //     nextEvo => nextEvo.species.name,
-    //   ),
-    // ];
+    if (
+      evoPokeData.chain &&
+      evoPokeData.chain.evolves_to[0] &&
+      evoPokeData.chain.evolves_to[0].evolves_to[0]
+    ) {
+      evoPokeList.push(
+        evoPokeData.chain.evolves_to[0].evolves_to[0].species.name,
+      );
+    }
 
     setEvoPoke(evoPokeList);
 
@@ -72,10 +67,8 @@ export default function PokeData() {
           `https://pokeapi.co/api/v2/pokemon/${evolution}`,
         );
         const imgPoke = await imgPokeRes.json();
-        const imgLink =
-          imgPoke.sprites &&
-          imgPoke.sprites.other['official-artwork'].front_default;
-        setImgEvoPoke(imgList => [...imgList, imgLink]);
+
+        setImgEvoPoke(imgList => [...imgList, imgPoke]);
       });
     }
 
@@ -115,6 +108,7 @@ export default function PokeData() {
     verifyGenderPokemon();
   }, [dataPoke]);
 
+  console.log(evoPoke);
   console.log(imgEvoPoke);
 
   return (
@@ -125,6 +119,7 @@ export default function PokeData() {
           {dataSpeciePoke.id >= 10 &&
             dataSpeciePoke.id < 100 &&
             `#0${dataSpeciePoke.id}`}
+          {dataSpeciePoke.id >= 100 && `#${dataSpeciePoke.id}`}
         </Number>
         <Name>{dataPoke.name}</Name>
         <img
@@ -185,9 +180,24 @@ export default function PokeData() {
         </Stat>
         <Title>Evolutions</Title>
         <Evolution>
-          {evoPoke.length && evoPoke.map(evolution => <p>{evolution}</p>)}
-          {/* {imgEvoPoke.length &&
-            imgEvoPoke.map(evoImg => <img src={evoImg} alt='pokemon' />)} */}
+          {imgEvoPoke
+            .sort((a, b) => a.id - b.id)
+            .map(pokeEvoInfo => (
+              <div key={pokeEvoInfo.name}>
+                {pokeEvoInfo.sprites && (
+                  <Image
+                    key={pokeEvoInfo.name}
+                    type={pokeEvoInfo.types[0].type.name}
+                    src={
+                      pokeEvoInfo.sprites.other['official-artwork']
+                        .front_default
+                    }
+                    alt={pokeEvoInfo.name}
+                  />
+                )}
+                <p key={pokeEvoInfo.id}>{pokeEvoInfo.name}</p>
+              </div>
+            ))}
         </Evolution>
       </SideRightBoard>
     </Container>

@@ -158,8 +158,6 @@ export const SideLeftBoard = styled.div`
     width: 300px;
     max-width: 100%;
   }
-
-  background-color: ${({ type }) => handleColorType(type)};
 `;
 
 export const Name = styled.p`
@@ -263,13 +261,25 @@ export const Evolution = styled.div`
   padding: 5px;
   display: flex;
   justify-content: space-evenly;
+  text-align: center;
 
-  p {
-    margin-left: 10px;
-    font-weight: 300;
+  div {
+    p {
+      text-transform: capitalize;
+      font-weight: 500;
+    }
   }
+`;
 
-  img {
-    width: 80px;
-  }
+export const Image = styled.img`
+  background: linear-gradient(
+    to bottom,
+    ${({ type }) => handleColorTypeBar(type)} 0%,
+    ${({ type }) => handleColorType(type)} 100%
+  );
+  display: inline-block;
+  border-radius: 50%;
+
+  max-width: 80px;
+  padding: 5px;
 `;
