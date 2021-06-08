@@ -5,8 +5,9 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  padding: 3rem 0.5rem;
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
 `;
 
 export const Dashboard = styled.div`

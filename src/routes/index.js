@@ -1,9 +1,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import PokeData from '../components/PokeData';
+import PokeData from '../pages/PokeData';
 
-import Pokedex from '../components/Pokedex';
-// import PokemonThumb from '../pages/PokemonThumb';
+import Pokedex from '../pages/Pokedex';
 
 export default function Routes() {
   return (

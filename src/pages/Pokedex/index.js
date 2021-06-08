@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import PokemonThumb from '../PokemonThumb';
+import Thumb from '../../components/Thumb';
 
 import { Button, Container, Dashboard } from './styles';
 
@@ -35,18 +35,17 @@ export default function Pokedex() {
 
   return (
     <Container>
-      <h1>Pokemon Evolution</h1>
       <Dashboard>
         <div>
           {allPokemons
             .sort((a, b) => a.id - b.id)
             .map(pokemon => (
-              <PokemonThumb
+              <Thumb
                 key={pokemon.id}
                 id={pokemon.id}
                 name={pokemon.name}
                 image={pokemon.sprites.other['official-artwork'].front_default}
-                type={
+                types={
                   pokemon.types && pokemon.types.map(tipos => tipos.type.name)
                 }
               />
