@@ -96,8 +96,6 @@ export default function PokeData() {
     verifyGenderPokemon();
   }, [dataPoke]);
 
-  console.log(dataSpeciePoke);
-
   return (
     <>
       <Container key={id}>
