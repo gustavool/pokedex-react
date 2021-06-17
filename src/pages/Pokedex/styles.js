@@ -18,6 +18,10 @@ export const Dashboard = styled.div`
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+
+    a div {
+      flex-wrap: nowrap;
+    }
   }
 `;
 
