@@ -135,6 +135,7 @@ export const Container = styled.div`
   height: 240px;
   text-align: center;
   box-shadow: 0 0 0.5 #000;
+  flex-wrap: nowrap;
   background: linear-gradient(
     to bottom,
     ${({ type }) => handleColorTypeBar(type)} 0%,
