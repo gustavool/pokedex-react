@@ -36,17 +36,13 @@ export default function Information({
       <Title>Data</Title>
       <Data>
         <div>
-          <p>
-            <strong>height:</strong> {height}
-          </p>
+          <strong>height:</strong> <p>{height}</p>
         </div>
         <div>
-          <p>
-            <strong>weight:</strong> {weight}
-          </p>
+          <strong>weight:</strong> <p>{weight}</p>
         </div>
         <div>
-          <strong>Gender:</strong>
+          <strong>Genders:</strong>
           {genders.includes(1) && <p>female</p>}
           {genders.includes(2) && <p>male</p>}
           {genders.includes(3) && <p>genderless</p>}

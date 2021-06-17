@@ -10,9 +10,8 @@ export default createGlobalStyle`
     color: inherit;
 }
 
-  header {
-  background-color: #FF5959;
-  z-index: 1;
+  #root {
+    min-height: 100%;
   }
 
   body {
@@ -23,9 +22,14 @@ export default createGlobalStyle`
     sans-serif;
     background-color: #f2f2f2;
     color: #595959;
-    margin-top: 64px;
-  }
+    display: flex;
+    flex-direction: column;
 
+    & + div {
+      margin: 0 auto;
+    }
+
+  }
 
   button {
     cursor: pointer;

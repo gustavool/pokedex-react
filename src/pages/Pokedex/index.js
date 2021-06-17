@@ -16,7 +16,7 @@ export default function Pokedex() {
 
     setLoadMore(dataList.next);
 
-    function createPokemonObject(results) {
+    function getEachPokemon(results) {
       results.forEach(async pokemon => {
         const resPoke = await fetch(
           `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`,
@@ -26,7 +26,7 @@ export default function Pokedex() {
         setAllPokemons(currentList => [...currentList, dataPoke]);
       });
     }
-    createPokemonObject(dataList.results);
+    getEachPokemon(dataList.results);
   };
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export default function Pokedex() {
             ))}
         </div>
         <Button type='submit' onClick={() => getAllPokemons()}>
-          Load more
+          <strong>Load more +20</strong>
         </Button>
       </Dashboard>
     </Container>

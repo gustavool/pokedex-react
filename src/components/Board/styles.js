@@ -126,12 +126,9 @@ const handleColorType = type => {
 
 export const Container = styled.div`
   width: 100%;
-  max-width: 540px;
-  padding: 16px 0;
+  max-width: 566px;
   display: flex;
-  flex-wrap: wrap;
   align-items: stretch;
-  margin: 8px;
   border-radius: 15px;
   justify-content: center;
   text-align: center;
@@ -175,5 +172,28 @@ export const Container = styled.div`
 
   span {
     color: #f2f2f2;
+  }
+
+  @media (max-width: 1132px) {
+    margin-bottom: 8px;
+  }
+
+  @media (max-width: 566px) {
+    padding-bottom: 24px;
+
+    flex-direction: column;
+
+    div strong {
+      margin-bottom: 8px;
+    }
+
+    div div:last-child {
+      flex-direction: row;
+    }
+
+    span {
+      max-width: 100%;
+      width: 120px;
+    }
   }
 `;

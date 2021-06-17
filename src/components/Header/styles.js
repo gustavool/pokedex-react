@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const Container = styled.header`
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -12,10 +11,28 @@ export const Container = styled.header`
   font-weight: 700;
   font-size: 32px;
 
-  position: fixed;
-  top: 0;
+  background-color: #ff5959;
+  z-index: 1;
 
-  & :hover {
+  & a:hover {
     color: #595959;
+  }
+
+  nav {
+    width: 100%;
+    max-width: 1140px;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 24px;
+  }
+
+  @media (max-width: 1140px) {
+    nav {
+      margin-left: 40px;
+
+      a + a {
+        margin-right: 16px;
+      }
+    }
   }
 `;

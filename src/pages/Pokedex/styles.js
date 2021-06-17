@@ -1,10 +1,6 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   width: 100%;
   max-width: 1140px;
   margin: 0 auto;
@@ -13,8 +9,9 @@ export const Container = styled.div`
 export const Dashboard = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  margin-top: 8px;
   justify-content: center;
+  align-items: center;
 
   div {
     display: flex;
@@ -25,11 +22,22 @@ export const Dashboard = styled.div`
 `;
 
 export const Button = styled.button`
-  background: #000 linear-gradient(#f5f5f5, #f1f1f1) repeat-x;
-  border-radius: 2px;
-  border: 1px solid #c6c6c6;
-  color: #444;
-  padding: 0.5rem 1.5rem;
-  min-width: 50%;
-  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 283px;
+  border: none;
+  margin: 16px 0;
+  font-size: 16px;
+  height: 40px;
+  color: #f2f2f2;
+  border-radius: 15px;
+  background-color: #a4a4a4;
+  padding-left: 8px;
+
+  &:hover {
+    background-color: #ff5959;
+    border-radius: 15px;
+  }
 `;

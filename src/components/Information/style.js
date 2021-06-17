@@ -4,19 +4,24 @@ import { transparentize } from 'polished';
 export const Container = styled.div`
   display: flex;
   width: 100%;
-  max-width: 540px;
+  max-width: 566px;
   border-radius: 15px;
   flex-direction: column;
   background-color: #a4a4a4;
   justify-content: space-evenly;
-  margin: 8px 8px 8px 0;
+  padding-bottom: 8px;
+
+  @media (max-width: 1132px) {
+    max-width: 566px;
+    margin: 0 0 8px 0;
+  }
 `;
 
 export const Title = styled.p`
   text-align: center;
 
-  color: #fff;
-  font-size: px;
+  color: #f2f2f2;
+  font-size: 16px;
   font-weight: 700;
   text-transform: capitalize;
 `;
@@ -40,6 +45,7 @@ export const Description = styled.div`
 export const Data = styled.div`
   margin: 0 10px;
   display: flex;
+  flex-wrap: wrap;
 
   font-weight: 700px;
   background-color: #f2f2f2;
