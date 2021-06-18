@@ -10,7 +10,7 @@ export default function Header() {
       <nav>
         <p />
         <Link to='/'>POKEDEX</Link>
-        <a href='https://github.com'>
+        <a href='https://github.com/gustavool/pokedex-react'>
           <GoMarkGithub size={24} />
         </a>
       </nav>
