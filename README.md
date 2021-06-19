@@ -2,7 +2,7 @@
 
 ## Description
 
-A simple Pokedex created using data/info from [PokeApi](https://pokeapi.co), React.JS and Styled Components for style.
+A simple Pokedex created using data/info from [PokeApi](https://pokeapi.co), React.JS and Styled Components.
 
 ### Web
 
@@ -41,4 +41,4 @@ inside the main folder execute: `yarn install`
 
 ### Run project
 
-yarn start
+`yarn start`
